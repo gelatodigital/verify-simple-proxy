@@ -33,14 +33,17 @@ const config: HardhatUserConfig = {
       chainId: 1261120,
       url: `https://rpc.zkatana.gelato.digital`,
     },
+
+    unreal: {
+      url: "https://rpc.unreal.gelato.digital",
+      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
+    },
   },
 
-  // etherscan: {
-  //   apiKey: process.env.ETHERSCAN_API_KEY,
-  // },
   etherscan: {
     apiKey: {
-      zkatana: "ETHERSCAN_KEY",
+      zkatana: "XXXX",
+      unreal: "XXXX",
     },
     customChains: [
       {
@@ -51,7 +54,20 @@ const config: HardhatUserConfig = {
           browserURL: "<Browser URL of zKatana's block explorer>",
         },
       },
+      {
+        network: "unreal",
+        chainId: 18231,
+        urls: {
+          apiURL: "https://unreal.blockscout.com/api",
+          browserURL: "https://unreal.blockscout.com",
+        },
+      },
     ],
+  },
+  sourcify: {
+    // Disabled by default
+    // Doesn't need an API key
+    enabled: true,
   },
 };
 

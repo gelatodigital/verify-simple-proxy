@@ -3,7 +3,6 @@ import {
   getImplementationAddress,
   getAdminAddress,
 } from "@openzeppelin/upgrades-core";
-
 import "@nomicfoundation/hardhat-verify";
 
 async function main() {
@@ -33,16 +32,6 @@ async function main() {
 
   console.log(implementationAddress, "Box (implementation) address");
   console.log(adminAddress, "Box (admin) address");
-
-  // Verify the implementation contract
-  await run("verify:verify", {
-    address: implementationAddress,
-  });
-
-  // Optionally, verify the proxy contract as well
-  await run("verify:verify", {
-    address: proxyAddress,
-  });
 }
 
 main().catch((error) => {
