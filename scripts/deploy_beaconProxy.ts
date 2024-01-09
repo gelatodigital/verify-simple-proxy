@@ -1,5 +1,5 @@
 // Import necessary Hardhat components
-import { ethers, upgrades } from "hardhat";
+import { ethers, upgrades, run } from "hardhat";
 import "@nomicfoundation/hardhat-verify";
 
 async function main() {
@@ -21,6 +21,7 @@ async function main() {
     BeaconProxyPatternV1,
     []
   );
+  console.log("Beacon Proxy 1 deployed to:", await beaconProxy1.getAddress());
   let versionAwareContractName =
     await beaconProxy1.getContractNameWithVersion();
   console.log(
@@ -32,6 +33,7 @@ async function main() {
     BeaconProxyPatternV1,
     []
   );
+  console.log("Beacon Proxy 2 deployed to:", await beaconProxy2.getAddress());
   versionAwareContractName = await beaconProxy2.getContractNameWithVersion();
   console.log(
     `Proxy Pattern and Version from Proxy 2 Implementation: ${versionAwareContractName}`
