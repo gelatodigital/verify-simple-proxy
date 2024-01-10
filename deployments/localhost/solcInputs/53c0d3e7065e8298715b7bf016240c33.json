@@ -3,6 +3,9 @@
   "sources": {
     "contracts/Box.sol": {
       "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.19;\r\n\r\ncontract Box {\r\n    uint256 private value;\r\n\r\n    // Emitted when the stored value changes\r\n    event ValueChanged(uint256 newValue);\r\n\r\n    // Stores a new value in the contract\r\n    function store(uint256 newValue) public {\r\n        value = newValue;\r\n        emit ValueChanged(newValue);\r\n    }\r\n\r\n    // Reads the last stored value\r\n    function retrieve() public view returns (uint256) {\r\n        return value;\r\n    }\r\n}\r\n"
+    },
+    "contracts/BoxV2.sol": {
+      "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.19;\r\n\r\nimport \"./Box.sol\";\r\n\r\ncontract BoxV2 is Box{\r\n    // Increments the stored value by 1\r\n    function increment() public {\r\n        store(retrieve()+1);\r\n    }\r\n}"
     }
   },
   "settings": {

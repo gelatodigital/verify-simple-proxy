@@ -2,38 +2,54 @@
 
 ## Overview
 
-This repository showcases how to deploy and verify smart contracts on a custom blockchain network like Unreal using Hardhat. It includes examples with two contracts, `Box.sol` and `BoxV2.sol`, demonstrating a simple proxy pattern.
+This repository demonstrates how to deploy and verify smart contracts on a custom blockchain network like Unreal using Hardhat. It includes examples with contracts, showcasing a proxy pattern.
 
 ## Contracts
 
-- `Box.sol`: Initial version of our contract.
-- `BoxV2.sol`: Updated version for demonstrating upgrades.
+- `Box.sol`: The initial version of our contract.
 
-## Deployment
+## Deployment and Verification
 
-We use the `hardhat-deploy` plugin for deploying our contracts. The deployment script deploys `Box.sol` using a proxy pattern.
+We now use the `deploy/` directory for deploying our contracts using the `hardhat-deploy` plugin. The deployment script deploys `Box.sol` using a Transparent Proxy pattern, and contract verification is integrated within the deployment process.
 
 ### Deploy Script
 
-The deploy script, located in `scripts/deploy_boxV1.ts`, handles the deployment of `Box.sol` and logs the proxy, implementation, and admin addresses.
+The deploy script, now located in `deploy/`, handles the deployment of `Box.sol` and logs the proxy, implementation, and admin addresses.
 
-## Verification
+### Deployment Output
 
-Verification of contracts on the custom chain is performed using `@nomicfoundation/hardhat-verify` along with `@openzeppelin/upgrades-core`.
+After running the deployment script, the following output is generated:
 
-### Verify Script
+- Proxy Address: `0xe3689ABC2F6648BA8be68cE41620988C4e2708bd`
+- Implementation Address: `0x7b8d30c0F605fCa77F2ec04661C11c369f630753`
+- Admin Address: `0xdDF2D006e3010e62c354508D42a2eA5910A88bD2`
 
-The verify script in `scripts/verify_boxV1.ts` verifies the implementation and proxy contracts on the Unreal blockchain's explorer.
+### Verification Result
 
-## Verification Result
+The implementation contract at `0x7b8d30c0F605fCa77F2ec04661C11c369f630753` has been verified on the Unreal blockchain's block explorer:
 
-The contracts are successfully verified, and their code is available on the block explorer.
+- [Box Implementation on Blockscout](https://unreal.blockscout.com/address/0x7b8d30c0F605fCa77F2ec04661C11c369f630753#code)
 
-- [BoxProxy](https://unreal.blockscout.com/address/0xe3689ABC2F6648BA8be68cE41620988C4e2708bd)
-- [BoxImplementation](https://unreal.blockscout.com/address/0x7b8d30c0F605fCa77F2ec04661C11c369f630753#code)
+### Running the Deployment
 
-## Additional Resources
+To deploy the contracts, run the following command:
 
-For those interested in exploring further, check out our dedicated branch on Beacon Proxy verification. This branch offers more insights and examples on the verification process using the Beacon Proxy pattern.
+```bash
+npx hardhat deploy --network <network-name>
+```
 
-Visit the [verify-beacon-proxy branch on GitHub](https://github.com/gelatodigital/verify-simple-proxy/tree/verify-beacon-proxy) for more information.
+## Output
+
+```
+PS C:\Users\aniru\OneDrive\Desktop\Gelato_internship\RaaS\verify-simple-proxy> npx hardhat deploy --network unreal
+Nothing to compile
+No need to generate any newer typings.
+reusing "DefaultProxyAdmin" at 0xdDF2D006e3010e62c354508D42a2eA5910A88bD2
+reusing "Box_Implementation" at 0x7b8d30c0F605fCa77F2ec04661C11c369f630753
+0xe3689ABC2F6648BA8be68cE41620988C4e2708bd Box (proxy) address
+0x7b8d30c0F605fCa77F2ec04661C11c369f630753 Box (implementation) address
+0xdDF2D006e3010e62c354508D42a2eA5910A88bD2 Box (admin) address
+The contract 0x7b8d30c0F605fCa77F2ec04661C11c369f630753 has already been verified on Etherscan.
+https://unreal.blockscout.com/address/0x7b8d30c0F605fCa77F2ec04661C11c369f630753#code
+Verified implementation contract at 0x7b8d30c0F605fCa77F2ec04661C11c369f630753
+```
