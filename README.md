@@ -53,3 +53,9 @@ The contract 0x7b8d30c0F605fCa77F2ec04661C11c369f630753 has already been verifie
 https://unreal.blockscout.com/address/0x7b8d30c0F605fCa77F2ec04661C11c369f630753#code
 Verified implementation contract at 0x7b8d30c0F605fCa77F2ec04661C11c369f630753
 ```
+
+## Additional Resources
+
+For those interested in exploring further, check out our dedicated branch on Beacon Proxy verification. This branch offers more insights and examples on the verification process using the Beacon Proxy pattern.
+
+Visit the [verify-beacon-proxy branch on GitHub](https://github.com/gelatodigital/verify-simple-proxy/tree/verify-beacon-proxy) for more information.
