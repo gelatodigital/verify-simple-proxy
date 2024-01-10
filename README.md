@@ -10,59 +10,28 @@ The Beacon Proxy pattern allows for more efficient contract upgrades by using a 
 
 To deploy the contracts:
 
-1. Run the `deploy_beaconProxy.ts` script. This deploys the beacon contract and two beacon proxy contracts.
-2. The script then upgrades the beacon to use a new implementation (`BeaconProxyPatternV2`).
-3. Each proxy contract automatically uses the updated implementation.
-
-```
-    You are using the `unsafeAllow.constructor` flag.
-
-Beacon deployed to: 0x25416bB4f509855949Ed586f6801B48D768526fd
-Beacon Proxy 1 deployed to: 0x3890DB55ff538FBF281c9152820A4a748f5D6F21
-Proxy Pattern and Version from Proxy 1 Implementation: Beacon Proxy Pattern: V1
-Beacon Proxy 2 deployed to: 0x4Ca850Ea965516092826724324d3aB0Ea4C8890b
-Proxy Pattern and Version from Proxy 2 Implementation: Beacon Proxy Pattern: V1
-Warning: Potentially unsafe deployment of contracts/Beacon/BeaconProxyPatternV2.sol:BeaconProxyPatternV2
-
-    You are using the `unsafeAllow.constructor` flag.
-
-Beacon upgraded with Beacon Proxy Pattern V2 as implementation at address: 0x25416bB4f509855949Ed586f6801B48D768526fd
-Proxy Pattern and Version from Proxy 1 Implementation: Beacon Proxy Pattern: V2
-Proxy Pattern and Version from Proxy 2 Implementation: Beacon Proxy Pattern: V2
-Proxy Pattern and Version from Proxy 1 Storage: Beacon Proxy Pattern: V2
-Proxy Pattern and Version from Proxy 2 Storage: Beacon Proxy Pattern: V1
-Done in 29.77s.
-```
-
-## Verification
-
-Verification of the implementation contract on the Unreal network is performed by the `verify_beacon.ts` script:
-
-1. The script retrieves the beacon address from one of the deployed proxies.
-2. It then fetches the current implementation address from the beacon.
-3. Finally, the script submits the implementation contract for verification on the Unreal block explorer.
+1. Run `npx hardhat deploy --network [yourCustomNetwork]`. This deploys the contracts.
+2. The script then verifies the implementation contract on the Unreal block explorer.
 
 ## Results
 
 After running the scripts, you should see logs confirming the deployment addresses of the beacon and proxy contracts, and the successful verification of the implementation contract on the Unreal block explorer.
 
 ```
-Beacon Address: 0x25416bB4f509855949Ed586f6801B48D768526fd
-Implementation Address: 0x8Bf8CE5Ac32cC3b2c9A84112025E760085474aE4
+deploying "Beacon_impl1" (tx: 0x2648bf14bda573e2a6bb66339d3aef842d68df86bc209ee84f9ac56dd015ff77)...: deployed at 0x8a49C6dcBC2622D2e1Ec8A578fe4E2091D6ea0B6 with 544445 gas
+deploying "MyBeacon" (tx: 0xb2719c1b524d765376e137eb7aebf0430d7d1149ef73ab1c08ad3a95cedbe131)...: deployed at 0xB3364ac01470e1D287f8C1cD9A3CB6624af14581 with 392175 gas
+deploying "ProxyBeacon_Implementation" (tx: 0xba0509e3cd59695b30026f80d721ea96537d550127687a6867fb9542ce4684f0)...: deployed at 0x5755133AFe85049CB65BcdF785fb9538DE29bB83 with 260237 gas
+deploying "ProxyBeacon_Proxy" (tx: 0x32b50a009f6b20932b95543fc2fccce7d4ad12428b439d4a40a96a66d9f25b07)...: deployed at 0xff21B97aF0dF6A3C66A6883F2dBa0762AC9d4Ac9 with 259943 gas
 Successfully submitted source code for contract
-contracts/Beacon/BeaconProxyPatternV2.sol:BeaconProxyPatternV2 at 0x8Bf8CE5Ac32cC3b2c9A84112025E760085474aE4
+contracts/Beacon/b_impl1.sol:Beacon_impl1 at 0x8a49C6dcBC2622D2e1Ec8A578fe4E2091D6ea0B6
 for verification on the block explorer. Waiting for verification result...
 
-Successfully verified contract BeaconProxyPatternV2 on the block explorer.
-https://unreal.blockscout.com/address/0x8Bf8CE5Ac32cC3b2c9A84112025E760085474aE4#code
+Successfully verified contract Beacon_impl1 on the block explorer.
+https://unreal.blockscout.com/address/0x8a49C6dcBC2622D2e1Ec8A578fe4E2091D6ea0B6#code
 
-Verified implementation contract at 0x8Bf8CE5Ac32cC3b2c9A84112025E760085474aE4
-Done in 13.21s.
+Verified Beacon_impl1 contract at 0x8a49C6dcBC2622D2e1Ec8A578fe4E2091D6ea0B6
+Verifying implementation: 0x8a49C6dcBC2622D2e1Ec8A578fe4E2091D6ea0B6
+The contract 0x8a49C6dcBC2622D2e1Ec8A578fe4E2091D6ea0B6 has already been verified on Etherscan.
+https://unreal.blockscout.com/address/0x8a49C6dcBC2622D2e1Ec8A578fe4E2091D6ea0B6#code
+Verifying beacon or beacon-like contract: 0xB3364ac01470e1D287f8C1cD9A3CB6624af14581
 ```
-
-[Verification Link](https://unreal.blockscout.com/address/0x8Bf8CE5Ac32cC3b2c9A84112025E760085474aE4#code)
-
-## Note
-
-- The `unsafeAllow.constructor` flag is used in deployment for demonstration purposes.
-- The beacon proxy pattern allows for centralized updates of the contract logic while maintaining individual proxy states.
